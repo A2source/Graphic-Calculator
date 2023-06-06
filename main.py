@@ -5,7 +5,7 @@ pygame.init()
 import func
 import graphic
 
-dim = [500, 500]
+dim = [1280, 720]
 
 SCREEN = pygame.display
 plane = SCREEN.set_mode(dim)

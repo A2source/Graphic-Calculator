@@ -17,12 +17,14 @@ def loop(f, screen_w, screen_h, surf, screen):
     x_axis = pygame.Rect(0, screen_h // 2, screen_w, 3)
     y_axis = pygame.Rect(screen_w // 2, 0, 3, screen_h)
     
-    scale = 1
+    scale = 20
     
     x_ofs = 0
     y_ofs = 0
     
     dragging = False
+    
+    precision = 50
     
     run = True
     while(run):
@@ -57,19 +59,29 @@ def loop(f, screen_w, screen_h, surf, screen):
                     x_axis.y = my + y_ofs
                     y_axis.x = mx + x_ofs
 
-    
         surf.fill(0)
 
         draw_plane(x_axis, y_axis, x_ofs, y_ofs, surf)
         
-        for x in range(l_x, u_x):
+        for x in range(l_x * precision, u_x * precision):
+        
+            x /= precision
         
             x_pos = x * scale + u_x
-            y_pos = f(x) * scale + u_y
+            y_pos = -(f(x) * scale - u_y)
             
-            next_x_pos = (x + 1) * scale + u_x
-            next_y_pos = f(x + 1) * scale + u_y
-        
+            next_x_pos = (x + 1 / precision) * scale + u_x
+            next_y_pos = -(f(x + 1 / precision) * scale - u_y)
+            
+            px_ofs = y_axis.x - u_x
+            py_ofs = x_axis.y - u_y    
+            
+            x_pos += px_ofs
+            next_x_pos += px_ofs
+            
+            y_pos += py_ofs
+            next_y_pos += py_ofs
+                
             pygame.draw.circle(surf, (255, 255, 255), (x_pos, y_pos), 2)
             pygame.draw.line(surf, (255, 255, 255), (x_pos, y_pos), (next_x_pos, next_y_pos))
         

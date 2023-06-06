@@ -1,8 +1,8 @@
 import math
 
 def f(x):
-    a = -1
-    b = 1
-    c = 1
+
+    if x == 0:
+        return x
     
-    return (a * x ** 2) + b * x + c
+    return 1 / x
