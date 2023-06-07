@@ -93,7 +93,7 @@ def loop(f, screen_w, screen_h, surf, screen):
         i = 0
         for function in f:
             
-            if function(x) == None:
+            if function(0) == None:
                 break
             
             for x in range(l_x * precision, u_x * precision):
