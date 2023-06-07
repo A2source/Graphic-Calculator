@@ -37,8 +37,11 @@ def loop(f, screen_w, screen_h, surf, screen):
     y_ofs = 0
     
     dragging = False
+    pressed = []
     
     precision = 4
+    
+    movement = 5
     
     run = True
     while(run):
@@ -48,13 +51,11 @@ def loop(f, screen_w, screen_h, surf, screen):
                 run = False
                 
             elif event.type == pygame.KEYDOWN:
-                if event.unicode == "q":
-                    scale /= 2
-               
-                elif event.unicode == 'e':
-                    scale *= 2
+                pressed.append(event.unicode)
+                print(pressed)
+                print(len(pressed))
 
-                elif event.unicode == "z":
+                if event.unicode == "z":
                     precision -= 1
                     print(precision)
                
@@ -65,7 +66,11 @@ def loop(f, screen_w, screen_h, surf, screen):
                 elif event.unicode == 'r':
                     x_axis = pygame.Rect(0, screen_h // 2, screen_w, 3)
                     y_axis = pygame.Rect(screen_w // 2, 0, 3, screen_h)
+                    precision = 4
                     scale = 80
+                    
+            elif event.type == pygame.KEYUP:
+                pressed.remove(event.unicode)
                     
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:            
@@ -85,6 +90,32 @@ def loop(f, screen_w, screen_h, surf, screen):
                     
                     x_axis.y = my + y_ofs
                     y_axis.x = mx + x_ofs
+                    
+        movement = (scale / scale) * 5
+                    
+        if len(pressed) > 0:
+            if pressed.count('q') > 0:
+                if scale - 3 + scale * 0.1 > 0:
+                    scale -= 3 + scale * 0.1
+                
+            if pressed.count('e') > 0:
+                scale += 3 + scale * 0.1
+                
+            if pressed.count('w') > 0:
+                y_ofs = x_axis.y + movement
+                x_axis.y = movement + y_ofs
+                
+            if pressed.count('a') > 0:
+                x_ofs = y_axis.x + movement
+                y_axis.x = movement + x_ofs
+                
+            if pressed.count('s') > 0:
+                y_ofs = x_axis.y - movement
+                x_axis.y = -movement + y_ofs
+                
+            if pressed.count('d') > 0:
+                x_ofs = y_axis.x - movement
+                y_axis.x = -movement + x_ofs
 
         surf.fill(0)
 

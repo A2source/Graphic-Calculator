@@ -1,4 +1,4 @@
-import math
+from math import *
 
 def f(x):
 
@@ -6,24 +6,24 @@ def f(x):
 
 def f0(x):
 
-    return
+    return 1 + x
 
 def f1(x):
 
-    return
+    return 2 + x
 
 def f2(x):
 
-    return
+    return 3 + x
 
 def f3(x):
 
-    return
+    return 4 + x
 
 def f4(x):
 
-    return
+    return -1 + x
 
 def f5(x):
 
-    return
+    return -2 + x
