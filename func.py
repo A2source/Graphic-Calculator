@@ -2,7 +2,7 @@ import math
 
 def f(x):
 
-    return x
+    return
 
 def f0(x):
 
