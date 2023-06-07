@@ -93,6 +93,9 @@ def loop(f, screen_w, screen_h, surf, screen):
         i = 0
         for function in f:
             
+            if function(x) == None:
+                break
+            
             for x in range(l_x * precision, u_x * precision):
                 
                 cols = [[255, 255, 255], [255, 0, 0], [0, 255, 0], [0, 0, 255]]
@@ -116,7 +119,7 @@ def loop(f, screen_w, screen_h, surf, screen):
                     
                 pygame.draw.circle(surf, cols[i % len(cols)], (x_pos, y_pos), 2)
                 pygame.draw.line(surf, cols[i % len(cols)], (x_pos, y_pos), (next_x_pos, next_y_pos))
-                
+
             i += 1
         
         screen.update()
